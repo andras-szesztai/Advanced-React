@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import Document, {
   DocumentContext,
   Head,
@@ -5,12 +6,16 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-
-    return initialProps;
+  static async getInitialProps({ renderPage }: DocumentContext) {
+    const sheet = new ServerStyleSheet();
+    const page = renderPage(
+      (App) => (props) => sheet.collectStyles(<App {...props} />)
+    );
+    const styleTags = sheet.getStyleElement(page);
+    return { ...page, styleTags };
   }
 
   render() {

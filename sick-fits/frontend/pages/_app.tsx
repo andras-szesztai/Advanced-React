@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from 'next/App';
 import NProgress from 'nprogress';
-import Router from 'next/Router';
+import Router from 'next/router';
 
 import '../components/styles/nprogress.css';
 
