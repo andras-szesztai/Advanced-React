@@ -1,9 +1,12 @@
+import { SyntheticEvent } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import Router from 'next/router';
 
-import { SyntheticEvent } from 'react';
 import Form from './styles/Form';
+import { ALL_PRODUCT_QUERY } from './Products';
 import ErrorMessage from './ErrorMessage';
+
 import useForm from '../hooks/useForm';
 import { TCreatedProduct } from '../types/data';
 
@@ -40,17 +43,19 @@ const CreateProduct = () => {
       image: '',
     });
 
-  const [createProduct, { loading, error }] = useMutation<TCreatedProduct>(
-    CREATE_PRODUCT_MUTATION,
-    {
+  const [createProduct, { loading, error, data }] =
+    useMutation<TCreatedProduct>(CREATE_PRODUCT_MUTATION, {
       variables: inputs,
-    }
-  );
+      refetchQueries: [{ query: ALL_PRODUCT_QUERY }],
+    });
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     await createProduct();
     clearForm();
+    Router.push({
+      pathname: `/product/${data.id}`,
+    });
   };
 
   return (
