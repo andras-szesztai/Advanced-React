@@ -15,16 +15,13 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 // TODO: setup with typescript
-const App = ({ Component, pageProps, apollo }) => {
-  console.log(apollo);
-  return (
-    <ApolloProvider client={apollo}>
-      <Page>
-        <Component {...pageProps} />
-      </Page>
-    </ApolloProvider>
-  );
-};
+const App = ({ Component, pageProps, apollo }) => (
+  <ApolloProvider client={apollo}>
+    <Page>
+      <Component {...pageProps} />
+    </Page>
+  </ApolloProvider>
+);
 
 App.getInitialProps = async function ({ Component, ctx }) {
   let pageProps = {};
