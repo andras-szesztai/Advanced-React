@@ -3,16 +3,25 @@ import { ChangeEvent, useState } from 'react';
 function useForm<T>(initial: T) {
   const [inputs, setInputs] = useState(initial);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name, type } = e.target;
 
-    let newValue: string | number | Array<FileList> = value;
+    let newValue: string | number | File = value;
     if (type === 'number') newValue = parseInt(value);
-    if (type === 'file') newValue[0] = e.target.files;
+    // eslint-disable-next-line prefer-destructuring
+    if (type === 'file' && e) newValue = e.target.files[0];
 
     setInputs({
       ...inputs,
       [name]: newValue,
+    });
+  };
+
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
     });
   };
 
@@ -32,7 +41,13 @@ function useForm<T>(initial: T) {
     setInputs(newForm);
   }
 
-  return { inputs, handleChange, resetForm, clearForm };
+  return {
+    inputs,
+    handleInputChange,
+    handleTextAreaChange,
+    resetForm,
+    clearForm,
+  };
 }
 
 export default useForm;

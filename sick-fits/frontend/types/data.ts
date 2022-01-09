@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export interface IProduct {
   id: string;
   name: string;
@@ -9,3 +10,5 @@ export interface IProduct {
     };
   };
 }
+
+export type TCreatedProduct = Omit<IProduct, 'photo'>;
