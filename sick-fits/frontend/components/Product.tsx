@@ -6,6 +6,7 @@ import PriceTag from './styles/PriceTag';
 
 import { IProduct } from '../types/data';
 import formatMoney from '../lib/formatMoney';
+import DeleteProduct from './DeleteProduct';
 
 interface IProps {
   product: IProduct;
@@ -30,6 +31,7 @@ const Product = ({ product }: IProps) => (
       >
         Edit
       </Link>
+      <DeleteProduct id={product.id}>Delete</DeleteProduct>
     </div>
   </ItemStyles>
 );
