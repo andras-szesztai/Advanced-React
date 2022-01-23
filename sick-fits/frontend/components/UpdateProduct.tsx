@@ -46,22 +46,19 @@ export default function UpdateProduct({ id }: Props) {
     variables: { id },
   });
 
-  const { inputs, handleInputChange, handleTextAreaChange, clearForm } =
-    useForm({
-      name: data?.Product.name,
-      price: data?.Product.price,
-      description: data?.Product.description,
-    });
-
-  const [
-    updateProduct,
-    { data: updatedData, error: updatedError, loading: updatedLoading },
-  ] = useMutation(UPDATE_PRODUCT_MUTATION, {
-    variables: {
-      id,
-      ...inputs,
-    },
+  const { inputs, handleInputChange, handleTextAreaChange } = useForm({
+    name: data?.Product.name,
+    price: data?.Product.price,
+    description: data?.Product.description,
   });
+
+  const [updateProduct, { error: updatedError, loading: updatedLoading }] =
+    useMutation(UPDATE_PRODUCT_MUTATION, {
+      variables: {
+        id,
+        ...inputs,
+      },
+    });
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
