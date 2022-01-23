@@ -1,13 +1,12 @@
 import { SyntheticEvent } from 'react';
-
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 
 import useForm from '../hooks/useForm';
 
 import ErrorMessage from './ErrorMessage';
-import Form from './styles/Form';
 import { CURRENT_USER_QUERY } from './User';
+import Form from './styles/Form';
 
 const SIGN_IN_MUTATION = gql`
   mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
