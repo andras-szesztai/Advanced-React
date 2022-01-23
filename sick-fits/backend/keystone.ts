@@ -11,6 +11,7 @@ import { Product } from './schemas/Product';
 import { ProductImage } from './schemas/ProductImage';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { CartItem } from './schemas/CartItem';
 
 const dataBaseURL = process.env.DATABASE_URL;
 
@@ -57,6 +58,7 @@ export default withAuth(
       User,
       Product,
       ProductImage,
+      CartItem,
     }),
     ui: {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
